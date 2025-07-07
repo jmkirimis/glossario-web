@@ -22,7 +22,7 @@ export default function SelectedWord() {
 
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/word/${ref}`, {
+      const res = await fetch(`https://ecee-api.onrender.com/api/word/${ref}`, {
         headers: {
           "Content-Type": "application/json",
           "X-Webhook-Secret":

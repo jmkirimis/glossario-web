@@ -24,7 +24,7 @@ export default function WordsListPage() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/words?page=${pageNumber}&limit=20&search=${search}`,
+        `https://ecee-api.onrender.com/api/words?page=${pageNumber}&limit=20&search=${search}`,
         {
           headers: {
             'Content-Type': 'application/json',
