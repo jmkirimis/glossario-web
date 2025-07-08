@@ -21,21 +21,20 @@ export default function WordsListPage() {
     if ((!hasMore && pageNumber !== 1) || hasError) return;
     setLoading(true);
 
-
     try {
       const res = await fetch(
-        `https://ecee-api.onrender.com/api/words?page=${pageNumber}&limit=20&search=${search}`,
+        `/api/get-words?page=${pageNumber}&search=${encodeURIComponent(search)}`,
         {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'X-Webhook-Secret': `Zm8DEVjItXxoolTzs1TK/U5bhafaWPpkX/rCQpX/PcudpXU2j3PmO9ldCe7poCWXnyVJekFG6sphAwxBIi1Jpg==`,
           },
         }
       );
+
       const result = await res.json();
 
       if (res.ok) {
-        console.log("Carregou", result)
         setHasError(false);
         if (pageNumber === 1) {
           setFilteredWords(result);
