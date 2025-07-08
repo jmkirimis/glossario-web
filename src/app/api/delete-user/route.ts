@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function DELETE(req: NextRequest) {
   const body = await req.json();
 
-  const response = await fetch('http://localhost:5000/user', {
+  const response = await fetch('https://ecee-api.onrender.com/user', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

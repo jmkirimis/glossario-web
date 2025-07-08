@@ -5,7 +5,7 @@ export async function GET(req: NextRequest) {
   const page = searchParams.get('page') || '1';
   const search = searchParams.get('search') || '';
 
-  const response = await fetch(`http://localhost:5000/api/words?page=${page}&limit=20&search=${encodeURIComponent(search)}`, {
+  const response = await fetch(`https://ecee-api.onrender.com/api/words?page=${page}&limit=20&search=${encodeURIComponent(search)}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
