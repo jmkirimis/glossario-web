@@ -16,6 +16,7 @@ export default function WordsListPage() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [autoLoadTriggered, setAutoLoadTriggered] = useState(false);
 
   const loadData = async (pageNumber = 1, search = '') => {
     if ((!hasMore && pageNumber !== 1) || hasError) return;
@@ -55,31 +56,69 @@ export default function WordsListPage() {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       setPage(1);
       setHasMore(true);
+      setAutoLoadTriggered(false); // reset ao fazer nova busca
       loadData(1, searchWord);
     }, 300);
 
     return () => clearTimeout(delayDebounce);
   }, [searchWord]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (page === 1) return;
     loadData(page, searchWord);
   }, [page]);
 
+  // Scroll infinito
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.body.offsetHeight;
+
+      if (
+        scrollTop + windowHeight >= fullHeight - 100 &&
+        !loading &&
+        hasMore &&
+        !hasError
+      ) {
+        setAutoLoadTriggered(true);
+        setPage((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, hasMore, hasError]);
+
+  const handleRedirect = async () => {
+    window.location.href = '/login';
+  }
+
   return (
     <div className={`
       bg-[url('/images/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed bg-black/50 bg-blend-overlay
       flex flex-col items-center min-h-screen p-8 text-white`
-      }>
-      
-      <h1 className='text-4xl font-bold mb-8'>GLOSSÁRIO</h1>
-      
+    }>
+      <div className="w-full mb-8 md:flex md:flex-row-reverse md:items-center md:justify-between">
+        <div className="flex md:w-48 justify-end mb-8 md:mb-0">
+          <button 
+          onClick={handleRedirect}
+          className="bg-sky-700 text-white p-3 rounded-lg font-semibold hover:cursor-pointer hover:bg-zinc-400 transition">
+            Fazer Login
+          </button>
+        </div>
+
+        {/* Título centralizado em todas as telas */}
+        <div className='w-full flex justify-center md:pl-32'>
+          <h1 className="text-4xl font-bold text-center">O GLOSSÁRIO</h1>
+        </div>
+      </div>
+
+
       <input
         type="text"
         value={searchWord}
@@ -104,10 +143,16 @@ export default function WordsListPage() {
             <p className='text-xl'>Carregando...</p>
           </div>
         )}
-        
-        {!loading && hasMore && (
+
+        {!loading && hasMore && !autoLoadTriggered && (
           <div className='flex justify-center items-center mt-2'>
-            <button onClick={() => setPage((prev) => prev + 1)} className='w-80 bg-zinc-400 p-3 text-xl font-bold rounded-md cursor-pointer hover:bg-zinc-500'>
+            <button
+              onClick={() => {
+                setAutoLoadTriggered(true);
+                setPage((prev) => prev + 1);
+              }}
+              className='w-80 bg-zinc-400 p-3 text-xl font-bold rounded-md cursor-pointer hover:bg-zinc-500'
+            >
               Carregar mais
             </button>
           </div>

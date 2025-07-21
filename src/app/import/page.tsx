@@ -60,7 +60,7 @@ export default function ImportPage() {
     <div className="bg-[url('/images/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed bg-black/50 bg-blend-overlay flex flex-col items-center min-h-screen p-8 text-white">
       <h1 className="text-4xl font-bold mb-8">IMPORTAR PALAVRAS</h1>
 
-      <div className="bg-white flex flex-col text-zinc-400 rounded-md w-full max-w-xl p-5 gap-4 shadow-lg">
+      <div className="bg-white flex flex-col text-zinc-400 rounded-md w-full max-w-1/2 p-5 gap-4 shadow-lg">
         {/* Campo customizado de input de arquivo */}
         <div className="flex items-center gap-2">
           <input
@@ -92,6 +92,19 @@ export default function ImportPage() {
         >
           {loading ? "Importando..." : "Importar"}
         </button>
+
+        <div className="bg-sky-200 w-full p-3 items-center justify-center rounded-lg text-zinc-600">
+          <h2 className="text-center font-bold text-lg mb-4">Instruções para Importação</h2>
+          <ul className="list-disc ml-5">
+            <li>O arquivo deve estar no formato <strong>.docx</strong>.</li>
+            <li>O arquivo deve conter uma lista de palavras, com <strong>uma palavra por linha</strong>.</li>
+            <li>Cada linha deve seguir a seguinte estrutura: <strong>nome, separador e descrição</strong>.</li>
+            <li>As referências devem estar no final da palavra, sempre precedidas da palavra <strong>Vide</strong>.</li>
+            <li><strong>Exemplo de formatação: </strong> <br /> <strong>Assim seja</strong> - Assim seja é “que ainda seja feito”, está no futuro, 
+              está ainda para ser feito. Portanto, “assim seja”, não é a tradução da palavra amém, 
+              que é aquilo que está no agora e é o que já aconteceu. Vide Amém</li>
+          </ul>
+        </div>
 
         {importErrors.length > 0 && (
           <div className="mt-4 text-red-600 max-h-60 overflow-y-auto bg-red-100 p-3 rounded text-sm">
