@@ -5,7 +5,7 @@ export default function ImportPage() {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [importErrors, setImportErrors] = useState<
-    { palavra: string; erro: any }[]
+    { palavra: string; erro: string }[]
   >([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
