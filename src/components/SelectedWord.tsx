@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import ContainerWord from "@/components/ContainerWord";
 
@@ -11,6 +12,7 @@ interface WordType {
 }
 
 export default function SelectedWord() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const ref = searchParams.get("ref");
 
@@ -44,7 +46,6 @@ export default function SelectedWord() {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     loadData();
   }, [ref]);
@@ -55,16 +56,32 @@ export default function SelectedWord() {
     bg-[url('/images/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed bg-black/50 bg-blend-overlay
     flex flex-col items-center min-h-screen p-8 text-white`}
     >
-      <h1 className="text-4xl font-bold mb-8 text-center">
-        PALAVRA SELECIONADA
-      </h1>
+      <div className="w-full mb-8">
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="bg-sky-700 px-5 py-2 rounded-md hover:cursor-pointer hover:bg-zinc-400 transition mb-8 md:mb-0"
+        >
+          <span className="font-bold text-white">Voltar</span>
+        </button>
+
+        {/* Título centralizado em todas as telas */}
+        <div className="w-full flex justify-center">
+          <h1 className="text-4xl font-bold text-center">PALAVRA SELECIONADA</h1>
+        </div>
+      </div>
 
       {loading && (
-          <div className='flex justify-center'>
-            <p className='text-xl'>Carregando...</p>
+          <div className="flex justify-center items-center gap-2 py-4">
+              <p className="text-xl">Carregando</p>
+              <div className="flex gap-1">
+              <span className="w-2 h-2 bg-gray-700 dark:bg-gray-300 rounded-full animate-bounce"></span>
+              <span className="w-2 h-2 bg-gray-700 dark:bg-gray-300 rounded-full animate-bounce [animation-delay:0.15s]"></span>
+              <span className="w-2 h-2 bg-gray-700 dark:bg-gray-300 rounded-full animate-bounce [animation-delay:0.3s]"></span>
+              </div>
           </div>
-        )}
-
+      )}
+      
       {selectedWord && (
         <Suspense fallback={<div>Carregando...</div>}>
             <ContainerWord 

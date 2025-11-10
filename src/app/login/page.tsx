@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Cookies from 'js-cookie';
+import Image from "next/image";
 
 export default function LoginPage() {
   const [userName, setUserName] = useState("");
@@ -47,7 +48,7 @@ export default function LoginPage() {
       flex flex-col items-center justify-center min-h-screen p-8 text-white`}
     >
       <div className="w-full md:w-2/3 lg:w-1/2 p-8 bg-white flex flex-col rounded-lg items-center justify-center">
-        <img src={"/images/Glossário ECEE.png"} className="w-36 mb-8" alt="Logo" />
+        <Image src={"/images/Glossário ECEE.png"} className="w-36 mb-8" alt="Logo" />
         <input
           type="text"
           value={userName}
