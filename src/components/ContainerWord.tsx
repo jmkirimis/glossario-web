@@ -17,7 +17,7 @@ export default function ContainerWord(item: Props) {
             <h3 className='font-bold mb-2'>{item.palavra}</h3>
             <p>{item.descricao}</p>
             {item.referencias.length > 0 && (
-              <div className='flex items-center gap-2'>
+              <div className='flex items-center gap-2 flex-wrap'>
                 <h4>Referências:</h4>
                 {item.referencias.map((ref, index) => (
                   <button

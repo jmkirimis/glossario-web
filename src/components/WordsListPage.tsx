@@ -105,7 +105,7 @@ export default function WordsListPage() {
     <div
       className={`
       bg-[url('/images/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed bg-black/50 bg-blend-overlay
-      flex flex-col items-center min-h-screen p-12 text-white`}
+      flex flex-col items-center min-h-screen py-8 px-12 text-white`}
     >
       <div className="w-full mb-8">
         <button

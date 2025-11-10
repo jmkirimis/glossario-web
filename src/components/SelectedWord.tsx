@@ -54,7 +54,7 @@ export default function SelectedWord() {
     <div
       className={`
     bg-[url('/images/background.jpg')] bg-cover bg-center bg-no-repeat bg-fixed bg-black/50 bg-blend-overlay
-    flex flex-col items-center min-h-screen p-8 text-white`}
+    flex flex-col items-center min-h-screen py-8 px-12 text-white`}
     >
       <div className="w-full mb-8">
         <button
@@ -81,7 +81,7 @@ export default function SelectedWord() {
               </div>
           </div>
       )}
-      
+
       {selectedWord && (
         <Suspense fallback={<div>Carregando...</div>}>
             <ContainerWord 
